@@ -1,15 +1,13 @@
+import { AppTheme } from '@/theme';
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
 import Animated, {
-  useSharedValue,
+  Easing,
   useAnimatedStyle,
+  useSharedValue,
   withRepeat,
   withTiming,
-  interpolate,
-  Easing,
 } from 'react-native-reanimated';
 import styled from 'styled-components/native';
-import { AppTheme } from '@/theme';
 
 interface LoaderProps {
   size?: 'small' | 'medium' | 'large';
@@ -18,12 +16,15 @@ interface LoaderProps {
 }
 
 const Container = styled.View<{ fullScreen: boolean; theme: AppTheme }>`
-  ${props => props.fullScreen ? `
+  ${(props: { fullScreen: boolean; theme: AppTheme }) =>
+    props.fullScreen
+      ? `
     flex: 1;
     justify-content: center;
     align-items: center;
     background-color: ${props.theme.background};
-  ` : `
+  `
+      : `
     padding: ${props.theme.spacing.m}px;
     align-items: center;
     justify-content: center;
@@ -31,18 +32,19 @@ const Container = styled.View<{ fullScreen: boolean; theme: AppTheme }>`
 `;
 
 const SpinnerContainer = styled.View<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${(props: { size: number }) => props.size}px;
+  height: ${(props: { size: number }) => props.size}px;
   justify-content: center;
   align-items: center;
 `;
 
 const Circle = styled(Animated.View)<{ size: number; color: string }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  border-radius: ${props => props.size / 2}px;
+  width: ${(props: { size: number; color: string }) => props.size}px;
+  height: ${(props: { size: number; color: string }) => props.size}px;
+  border-radius: ${(props: { size: number; color: string }) =>
+    props.size / 2}px;
   border-width: 3px;
-  border-color: ${props => props.color};
+  border-color: ${(props: { size: number; color: string }) => props.color};
   border-top-color: transparent;
 `;
 
@@ -52,10 +54,10 @@ const SIZE_MAP = {
   large: 48,
 };
 
-export const Loader: React.FC<LoaderProps> = ({ 
-  size = 'medium', 
+export const Loader: React.FC<LoaderProps> = ({
+  size = 'medium',
   color = '#0a7ea4',
-  fullScreen = false 
+  fullScreen = false,
 }) => {
   const rotation = useSharedValue(0);
   const sizeValue = SIZE_MAP[size];
@@ -80,13 +82,8 @@ export const Loader: React.FC<LoaderProps> = ({
   return (
     <Container fullScreen={fullScreen}>
       <SpinnerContainer size={sizeValue}>
-        <Circle 
-          size={sizeValue} 
-          color={color}
-          style={animatedStyle}
-        />
+        <Circle size={sizeValue} color={color} style={animatedStyle} />
       </SpinnerContainer>
     </Container>
   );
 };
-

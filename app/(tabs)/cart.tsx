@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text, TouchableOpacity, Alert, Platform } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
@@ -10,6 +10,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Button } from '@/components/ui/Button';
 import { CongratulationsModal } from '@/components/CongratulationsModal';
 import { AppTheme } from '@/theme';
+import { CartItem } from '@/types';
 
 const Container = styled.View<{ theme: AppTheme }>`
   flex: 1;
@@ -126,7 +127,7 @@ export default function CartScreen() {
     dispatch(placeOrderRequest());
   };
 
-  const renderItem = ({ item }: { item: any }) => (
+  const renderItem = ({ item }: { item: CartItem }) => (
     <CartItemContainer>
       <ItemImage source={{ uri: item.image }} />
       <ItemInfo>

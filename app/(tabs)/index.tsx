@@ -9,7 +9,7 @@ import {
 } from '@/features/products/productsSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux';
 import { AppTheme } from '@/theme';
-import { Category } from '@/types';
+import { Category, Product } from '@/types';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
@@ -93,7 +93,7 @@ export default function ShopScreen() {
     dispatch(fetchProductsRequest({ page: 1, isRefresh: true }));
   };
 
-  const renderProduct = ({ item }: { item: any }) => (
+  const renderProduct = ({ item }: { item: Product }) => (
     <ProductCard
       product={item}
       onPress={(p) => router.push(`/details/${p.id}`)}

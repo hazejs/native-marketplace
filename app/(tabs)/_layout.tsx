@@ -3,13 +3,10 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAppSelector } from '@/hooks/use-redux';
 import { selectCartCount } from '@/features/cart/cartSlice';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme() ?? 'light';
   const cartCount = useAppSelector(selectCartCount);
 
   return (

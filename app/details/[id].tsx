@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
@@ -57,14 +57,14 @@ const RatingContainer = styled.View`
 `;
 
 const StockBadge = styled.View<{ inStock: boolean }>`
-  background-color: ${props => props.inStock ? '#e8f5e9' : '#ffebee'};
+  background-color: ${(props: { inStock: boolean }) => props.inStock ? '#e8f5e9' : '#ffebee'};
   padding: 4px 8px;
   border-radius: 4px;
   margin-bottom: 16px;
 `;
 
 const StockText = styled.Text<{ inStock: boolean }>`
-  color: ${props => props.inStock ? '#2e7d32' : '#c62828'};
+  color: ${(props: { inStock: boolean }) => props.inStock ? '#2e7d32' : '#c62828'};
   font-size: 12px;
   font-weight: 600;
 `;
