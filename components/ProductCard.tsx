@@ -1,6 +1,5 @@
 import { Image as ExpoImage } from 'expo-image';
 import React from 'react';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { AppTheme } from '../theme';
 import { Product } from '../types';
@@ -18,6 +17,11 @@ const Card = styled.TouchableOpacity<{ theme: AppTheme }>`
     props.theme.borderRadius.m}px;
   margin: ${(props: { theme: AppTheme }) => props.theme.spacing.s}px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  width: 100%;
+  max-width: 100%;
 
   /* Enhanced Shadow for depth */
   shadow-color: #000;
@@ -39,6 +43,7 @@ const ImageContainer = styled.View`
   border-top-right-radius: ${(props: { theme: AppTheme }) =>
     props.theme.borderRadius.m}px;
   overflow: hidden;
+  width: 100%;
 `;
 
 const ProductImage = styled(ExpoImage)`
@@ -49,7 +54,21 @@ const ProductImage = styled(ExpoImage)`
 const Content = styled.View<{ theme: AppTheme }>`
   padding: ${(props: { theme: AppTheme }) => props.theme.spacing.s}px;
   flex: 1;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+  width: 100%;
+`;
+
+const TopSection = styled.View`
+  flex: 1;
+  flex-shrink: 1;
+  width: 100%;
+`;
+
+const BottomSection = styled.View<{ theme: AppTheme }>`
+  margin-top: ${(props: { theme: AppTheme }) => props.theme.spacing.s}px;
+  width: 100%;
 `;
 
 const Title = styled.Text<{ theme: AppTheme }>`
@@ -81,6 +100,7 @@ const Price = styled.Text<{ theme: AppTheme }>`
 const RatingContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-bottom: 4px;
 `;
 
 const RatingText = styled.Text<{ theme: AppTheme }>`
@@ -113,11 +133,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         />
       </ImageContainer>
       <Content>
-        <View>
+        <TopSection>
           <Category>{product.category}</Category>
           <Title numberOfLines={2}>{product.name}</Title>
-        </View>
-        <View>
+        </TopSection>
+        <BottomSection>
           <RatingContainer>
             <IconSymbol name='star.fill' size={12} color='#FFD700' />
             <RatingText>
@@ -130,7 +150,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <IconSymbol name='plus' size={20} color='#fff' />
             </AddButton>
           </Footer>
-        </View>
+        </BottomSection>
       </Content>
     </Card>
   );
