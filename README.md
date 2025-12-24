@@ -39,7 +39,7 @@ npm test
 ## Architecture
 
 - **`app/`**: File-based routing (Expo Router).
-- **`features/`**: Redux slices and sagas organized by domain.
+- **`features/`**: Redux slices and sagas.
 - **`components/`**: Reusable UI components.
 - **`api/`**: Mock data generation and simulated API calls.
 - **`store/`**: Redux store configuration and root saga.
