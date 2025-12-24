@@ -11,9 +11,10 @@ A marketplace application built with Expo, React Native, Redux Toolkit, Redux Sa
 
 1. Clone the repository
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+
+```bash
+npm install
+```
 
 ### Running the App
 
