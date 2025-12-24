@@ -62,12 +62,11 @@ export const CongratulationsModal: React.FC<CongratulationsModalProps> = ({
       confettiLoaded.current = true;
 
       // Lazy load confetti
-      if (Platform.OS === 'web') {
-        import('canvas-confetti')
-          .then((confettiModule) => {
+      const loadConfetti = async () => {
+        try {
+          if (Platform.OS === 'web') {
+            const confettiModule = await import('canvas-confetti');
             const confetti = confettiModule.default;
-            const duration = 3 * 1000;
-            const animationEnd = Date.now() + duration;
             const defaults = {
               startVelocity: 30,
               spread: 360,
@@ -78,34 +77,24 @@ export const CongratulationsModal: React.FC<CongratulationsModalProps> = ({
             const randomInRange = (min: number, max: number) =>
               Math.random() * (max - min) + min;
 
-            const interval: any = setInterval(function () {
-              const timeLeft = animationEnd - Date.now();
-
-              if (timeLeft <= 0) {
-                return clearInterval(interval);
-              }
-
-              const particleCount = 50 * (timeLeft / duration);
-              confetti({
-                ...defaults,
-                particleCount,
-                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-              });
-              confetti({
-                ...defaults,
-                particleCount,
-                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-              });
-            }, 100);
-          })
-          .catch(() => {});
-      } else {
-        import('react-native-confetti-cannon')
-          .then((module) => {
+            confetti({
+              ...defaults,
+              particleCount: 50,
+              origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+            });
+            confetti({
+              ...defaults,
+              particleCount: 50,
+              origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+            });
+          } else {
+            const module = await import('react-native-confetti-cannon');
             setConfettiComponent(() => module.default);
-          })
-          .catch(() => {});
-      }
+          }
+        } catch {}
+      };
+
+      loadConfetti();
 
       Animated.spring(scaleAnim, {
         toValue: 1,
