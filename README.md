@@ -36,7 +36,7 @@ npm test
 
 - **`app/`**: File-based routing (Expo Router).
 - **`features/`**: Redux slices and sagas.
-- **`components/`**: Reusable UI components.
+- **`components/`**: UI components.
 - **`api/`**: Mock data generation and simulated API calls.
 - **`store/`**: Redux store configuration and root saga.
 - **`theme/`**: Global styling configuration for Styled Components.
