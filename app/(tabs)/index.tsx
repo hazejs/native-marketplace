@@ -1,15 +1,19 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import { FlatList, View, ActivityIndicator, RefreshControl, Text, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import styled from 'styled-components/native';
-import { useAppDispatch, useAppSelector } from '@/hooks/use-redux';
-import { fetchProductsRequest, setFilters } from '@/features/products/productsSlice';
-import { addToCart } from '@/features/cart/cartSlice';
 import { ProductCard } from '@/components/ProductCard';
-import { SearchBar } from '@/components/ui/SearchBar';
 import { CategoryChip } from '@/components/ui/CategoryChip';
-import { Category } from '@/types';
+import { Loader } from '@/components/ui/Loader';
+import { SearchBar } from '@/components/ui/SearchBar';
+import { addToCart } from '@/features/cart/cartSlice';
+import {
+  fetchProductsRequest,
+  setFilters,
+} from '@/features/products/productsSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/use-redux';
 import { AppTheme } from '@/theme';
+import { Category } from '@/types';
+import { useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, RefreshControl, View } from 'react-native';
+import styled from 'styled-components/native';
 
 const Container = styled.View<{ theme: AppTheme }>`
   flex: 1;
@@ -44,12 +48,22 @@ const EmptyText = styled.Text<{ theme: AppTheme }>`
   text-align: center;
 `;
 
-const CATEGORIES: (Category | 'All')[] = ['All', 'Electronics', 'Clothing', 'Home', 'Beauty', 'Sports', 'Books'];
+const CATEGORIES: (Category | 'All')[] = [
+  'All',
+  'Electronics',
+  'Clothing',
+  'Home',
+  'Beauty',
+  'Sports',
+  'Books',
+];
 
 export default function ShopScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { items, loading, refreshing, page, hasMore, filters } = useAppSelector(state => state.products);
+  const { items, loading, refreshing, page, hasMore, filters } = useAppSelector(
+    (state) => state.products
+  );
   const [searchTerm, setSearchTerm] = useState(filters.search || '');
 
   useEffect(() => {
@@ -73,7 +87,9 @@ export default function ShopScreen() {
   };
 
   const handleCategorySelect = (category: Category | 'All') => {
-    dispatch(setFilters({ category: category === 'All' ? undefined : category }));
+    dispatch(
+      setFilters({ category: category === 'All' ? undefined : category })
+    );
     dispatch(fetchProductsRequest({ page: 1, isRefresh: true }));
   };
 
@@ -88,13 +104,10 @@ export default function ShopScreen() {
   return (
     <Container>
       <Header>
-        <SearchBar 
-          value={searchTerm} 
-          onChangeText={handleSearch} 
-        />
+        <SearchBar value={searchTerm} onChangeText={handleSearch} />
         <View>
           <CategoriesList horizontal showsHorizontalScrollIndicator={false}>
-            {CATEGORIES.map(cat => (
+            {CATEGORIES.map((cat) => (
               <CategoryChip
                 key={cat}
                 category={cat}
@@ -109,7 +122,7 @@ export default function ShopScreen() {
       <FlatList
         data={items}
         renderItem={renderProduct}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         contentContainerStyle={{ padding: 8 }}
         onEndReached={handleLoadMore}
@@ -117,14 +130,14 @@ export default function ShopScreen() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
-        ListFooterComponent={() => 
+        ListFooterComponent={() =>
           loading && !refreshing ? (
             <FooterLoader>
-              <ActivityIndicator size="small" />
+              <Loader size='small' />
             </FooterLoader>
           ) : null
         }
-        ListEmptyComponent={() => 
+        ListEmptyComponent={() =>
           !loading ? (
             <EmptyContainer>
               <EmptyText>No products found matching your search.</EmptyText>

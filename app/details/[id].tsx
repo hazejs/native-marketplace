@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import styled from 'styled-components/native';
 import { Image as ExpoImage } from 'expo-image';
@@ -8,6 +8,7 @@ import { fetchProductByIdRequest } from '@/features/products/productsSlice';
 import { addToCart } from '@/features/cart/cartSlice';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Button } from '@/components/ui/Button';
+import { Loader } from '@/components/ui/Loader';
 import { AppTheme } from '@/theme';
 
 const Container = styled.ScrollView<{ theme: AppTheme }>`
@@ -128,11 +129,7 @@ export default function ProductDetailsScreen() {
   }, [id, product, dispatch]);
 
   if (loading && !product) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    return <Loader size="large" fullScreen />;
   }
 
   if (!product) {

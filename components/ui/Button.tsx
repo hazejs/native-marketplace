@@ -1,7 +1,7 @@
 import { AppTheme } from '@/theme';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
+import { Loader } from './Loader';
 
 interface ButtonProps {
   title: string;
@@ -81,7 +81,7 @@ export const Button: React.FC<ButtonProps> = ({
       activeOpacity={0.7}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? '#fff' : '#000'} />
+        <Loader size='small' color={variant === 'primary' ? '#fff' : '#000'} />
       ) : (
         <ButtonText variant={variant} disabled={disabled}>
           {title}
