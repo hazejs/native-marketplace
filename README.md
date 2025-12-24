@@ -1,22 +1,11 @@
 # Marketplace Expo App
 
-A robust marketplace application built with Expo, React Native, Redux Toolkit, Redux Saga, and Styled Components.
-
-## Features
-
-- **Product List**: Infinite scroll pagination, multi-field search, category filtering, and sorting.
-- **Product Details**: Comprehensive view with images, ratings, stock status, and quantity selection.
-- **Cart Management**: Add/remove items, update quantities, and subtotal calculation.
-- **Mock API**: Simulates a backend with 2,000 products, network latency, and server-side logic.
-- **Clean Architecture**: Layered structure with clear separation between UI, state management, and infrastructure.
-
-## Getting Started
+A marketplace application built with Expo, React Native, Redux Toolkit, Redux Saga, and Styled Components.
 
 ### Prerequisites
 
 - Node.js (v18+)
 - npm or yarn
-- Expo Go app on your mobile device (optional)
 
 ### Installation
 
@@ -56,12 +45,3 @@ npm test
 - **`store/`**: Redux store configuration and root saga.
 - **`theme/`**: Global styling configuration for Styled Components.
 - **`types/`**: TypeScript interfaces and types.
-
-## Technologies
-
-- **Framework**: Expo / React Native
-- **State Management**: Redux Toolkit + Redux Saga
-- **Styling**: Styled Components
-- **Image Loading**: Expo Image
-- **Icons**: Expo Symbols / Vector Icons
-- **Testing**: Jest + Redux Saga Test Plan
