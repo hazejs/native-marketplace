@@ -2,11 +2,6 @@
 
 A marketplace application built with Expo, React Native, Redux Toolkit, Redux Saga, and Styled Components.
 
-### Prerequisites
-
-- Node.js (v18+)
-- npm or yarn
-
 ### Installation
 
 1. Clone the repository
